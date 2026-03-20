@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Skin Disease Detector</title>
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+    <main class="container">
+        <h1>Skin Disease Detector</h1>
+
+        <section class="card">
+            <p>Upload an image of skin and the model will predict the most likely disease.</p>
+
+            <label class="file-upload">
+                <input id="imageInput" type="file" accept="image/*" />
+                <span>Select image</span>
+            </label>
+
+            <button id="predictButton" onclick="upload()">Predict</button>
+
+            <div id="result" class="result" aria-live="polite"></div>
+        </section>
+
+        <section class="notes">
+            <h2>Notes</h2>
+            <ul>
+                <li>This demo expects a trained Keras model at <code>skin_model.h5</code>.</li>
+                <li>If the model is missing, the server returns a dummy prediction.</li>
+            </ul>
+        </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

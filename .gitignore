@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.env
+.env
+venv/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Model files
+*.h5
+*.hdf5
+
+# Editor
+.vscode/
+.idea/
