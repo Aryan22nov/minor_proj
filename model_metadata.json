@@ -1,0 +1,54 @@
+{
+  "model_name": "Skin Disease Classification - Transfer Learning",
+  "base_model": "MobileNetV2 (ImageNet pre-trained)",
+  "input_shape": [
+    224,
+    224,
+    3
+  ],
+  "num_classes": 4,
+  "classes": [
+    "Acne",
+    "Eczema",
+    "Melanoma",
+    "Psoriasis"
+  ],
+  "total_parameters": 2620868,
+  "trainable_parameters": 362116,
+  "test_accuracy": 0.5166666666666667,
+  "test_accuracy_percent": 51.66666666666667,
+  "confusion_matrix": [
+    [
+      13,
+      2,
+      0,
+      0
+    ],
+    [
+      11,
+      3,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      15,
+      0
+    ],
+    [
+      13,
+      2,
+      0,
+      0
+    ]
+  ],
+  "per_class_accuracy": {
+    "Acne": 0.8666666666666667,
+    "Eczema": 0.2,
+    "Melanoma": 1.0,
+    "Psoriasis": 0.0
+  },
+  "training_framework": "TensorFlow/Keras",
+  "creation_date": "2026-03-20"
+}

@@ -5,6 +5,7 @@
 let currentPage = 'home';
 
 function navigateTo(pageName) {
+  console.log(`🔀 Navigating to: ${pageName}`);
   // Hide all pages
   document.querySelectorAll('.page').forEach(page => {
     page.classList.remove('active');
@@ -17,6 +18,9 @@ function navigateTo(pageName) {
     currentPage = pageName;
     window.scrollTo({ top: 0, behavior: 'smooth' });
     updateNavigation();
+    console.log(`✅ Successfully navigated to ${pageName}`);
+  } else {
+    console.error(`❌ Page not found: ${pageName}-page`);
   }
 }
 
@@ -111,9 +115,11 @@ let selectedFile = null;
    ============================================================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('✅ DOMContentLoaded fired - Initializing app...');
   initializeEventListeners();
   loadHistoryFromStorage();
   applyThemePreference();
+  console.log('✅ App initialization complete');
 });
 
 function initializeEventListeners() {
@@ -167,18 +173,26 @@ function updateThemeIcon() {
    ============================================================================ */
 
 function handleFileSelect(event) {
+  console.log('📁 File selected');
   const files = event.target.files;
-  if (!files || files.length === 0) return;
+  if (!files || files.length === 0) {
+    console.warn('⚠️ No files in selection');
+    return;
+  }
 
   const file = files[0];
   const validTypes = ['image/jpeg', 'image/png', 'image/webp'];
 
+  console.log(`📸 File: ${file.name}, Type: ${file.type}, Size: ${(file.size / 1024).toFixed(2)}KB`);
+
   if (!validTypes.includes(file.type)) {
+    console.error('❌ Invalid file type');
     showError('Unsupported file format. Please upload JPG, PNG, or WEBP.');
     return;
   }
 
   if (file.size > 10 * 1024 * 1024) {
+    console.error('❌ File too large');
     showError('File size exceeds 10MB. Please choose a smaller image.');
     return;
   }
@@ -186,6 +200,7 @@ function handleFileSelect(event) {
   selectedFile = file;
   displayPreview(file);
   clearError();
+  console.log('✅ File validated and preview displaying');
 }
 
 function displayPreview(file) {
@@ -281,13 +296,16 @@ function capturePhoto() {
    ============================================================================ */
 
 async function handleSubmit(event) {
+  console.log('📤 Form submitted');
   event.preventDefault();
 
   if (!selectedFile) {
+    console.warn('⚠️ No file selected');
     showError('Please select or capture an image first.');
     return;
   }
 
+  console.log(`📸 Analyzing image: ${selectedFile.name}`);
   clearError();
   showLoading();
 
@@ -295,16 +313,20 @@ async function handleSubmit(event) {
   formData.append('image', selectedFile);
 
   try {
+    console.log('🚀 Sending request to /predict...');
     const response = await fetch('/predict', {
       method: 'POST',
       body: formData
     });
+
+    console.log(`📡 Response status: ${response.status}`);
 
     if (!response.ok) {
       throw new Error(`Server error: ${response.status}`);
     }
 
     const data = await response.json();
+    console.log('✅ Prediction received:', data);
 
     if (data.error) {
       throw new Error(data.error);
@@ -315,6 +337,7 @@ async function handleSubmit(event) {
     savePredictionToHistory(data);
 
   } catch (err) {
+    console.error('❌ Error:', err);
     showError(`Prediction failed: ${err.message}`);
   } finally {
     hideLoading();

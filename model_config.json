@@ -1,0 +1,53 @@
+{
+  "architecture": {
+    "name": "Skin Disease CNN",
+    "input_shape": [
+      224,
+      224,
+      3
+    ],
+    "num_classes": 4,
+    "total_layers": 35,
+    "total_parameters": 27035044,
+    "trainable_parameters": 27031332,
+    "non_trainable_parameters": 3712
+  },
+  "layers": {
+    "convolutional_blocks": 4,
+    "maxpooling_layers": 4,
+    "dropout_layers": 7,
+    "batch_normalization_layers": 11,
+    "dense_layers": 4,
+    "flatten_layers": 1
+  },
+  "training_config": {
+    "optimizer": "Adam",
+    "learning_rate": 0.001,
+    "loss_function": "categorical_crossentropy",
+    "metrics": [
+      "accuracy"
+    ],
+    "batch_size": 32,
+    "epochs": 50
+  },
+  "regularization": {
+    "dropout_rates_conv": [
+      0.25,
+      0.25,
+      0.25,
+      0.25
+    ],
+    "dropout_rates_dense": [
+      0.5,
+      0.5,
+      0.5
+    ],
+    "batch_normalization": true
+  },
+  "disease_classes": [
+    "Acne",
+    "Eczema",
+    "Melanoma",
+    "Psoriasis"
+  ]
+}

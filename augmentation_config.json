@@ -1,0 +1,54 @@
+{
+  "augmentation_techniques": {
+    "rotation": {
+      "range": 20,
+      "description": "Random rotation between -20 and +20 degrees"
+    },
+    "zoom": {
+      "range": 0.2,
+      "description": "Zoom in or out by up to 20%"
+    },
+    "horizontal_flip": {
+      "enabled": true,
+      "description": "Random horizontal flip (mirror)"
+    },
+    "vertical_flip": {
+      "enabled": true,
+      "description": "Random vertical flip (mirror)"
+    },
+    "width_shift": {
+      "range": 0.2,
+      "description": "Horizontal shift by up to 20%"
+    },
+    "height_shift": {
+      "range": 0.2,
+      "description": "Vertical shift by up to 20%"
+    },
+    "shear": {
+      "range": 0.2,
+      "description": "Shear transformation by up to 20%"
+    },
+    "brightness": {
+      "range": [
+        0.7,
+        1.3
+      ],
+      "description": "Brightness adjustment between 70% and 130%"
+    }
+  },
+  "benefits": [
+    "Increases effective dataset size",
+    "Improves model generalization",
+    "Prevents overfitting",
+    "Makes model robust to variations",
+    "Simulates real-world variations"
+  ],
+  "implementation": {
+    "batch_size": 32,
+    "image_size": [
+      224,
+      224
+    ],
+    "fill_mode": "nearest"
+  }
+}

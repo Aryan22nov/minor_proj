@@ -30,7 +30,7 @@ Name:           skin-disease-detector-api
 Environment:    Python 3
 Region:         Choose nearest
 Build Command:  pip install -r requirements.txt
-Start Command:  gunicorn app:app
+Start Command:  gunicorn wsgi:app
 Plan:           Free
 ```
 

@@ -571,12 +571,12 @@ export default function App() {
           </div>
 
           <form className="uploadCard" onSubmit={onSubmit}>
-            <div
+            <label
               className={`dropzone ${dragActive ? "active" : ""}`}
               onDrop={onDrop}
               onDragOver={onDragOver}
               onDragLeave={onDragLeave}
-              onClick={() => fileInputRef.current?.click()}
+              htmlFor="file-input"
             >
               <div className="dropContent">
                 <div className="dropIcon" aria-hidden="true">
@@ -585,19 +585,20 @@ export default function App() {
                 <div>
                   <p className="dropTitle">Drag & drop your image here</p>
                   <p className="dropSubtitle">PNG, JPG, or WEBP (max 10MB)</p>
-                  <button type="button" className="buttonLink">
+                  <button type="button" className="buttonLink" onClick={(e) => {e.preventDefault(); e.stopPropagation(); document.getElementById('file-input')?.click();}}>
                     Browse files
                   </button>
                 </div>
               </div>
               <input
                 ref={fileInputRef}
+                id="file-input"
                 type="file"
                 accept={ACCEPTED_TYPES.join(",")}
                 onChange={onFileChange}
                 className="visuallyHidden"
               />
-            </div>
+            </label>
 
             {previewUrl ? (
               <div className="preview-section">

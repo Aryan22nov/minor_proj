@@ -23,8 +23,8 @@ import numpy as np
 # Config
 #------------------------------------------------------------------------------
 
-MODEL_PATH = os.environ.get("MODEL_PATH", "skin_model.h5")
-CLASS_NAMES = ["Acne", "Eczema", "Melanoma"]
+MODEL_PATH = os.environ.get("MODEL_PATH", "best_model_transfer.h5")
+CLASS_NAMES = ["Acne", "Eczema", "Melanoma", "Psoriasis"]
 TARGET_SIZE = (224, 224)
 
 #------------------------------------------------------------------------------
