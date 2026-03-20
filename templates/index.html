@@ -3,35 +3,205 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Skin Disease Detector</title>
+    <title>AI Skin Disease Detector - Professional Medical Analysis</title>
     <link rel="stylesheet" href="/static/style.css" />
 </head>
 <body>
-    <main class="container">
-        <h1>Skin Disease Detector</h1>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand" onclick="navigateTo('home')" style="cursor: pointer;">
+                <span class="nav-icon">🏥</span>
+                <span class="nav-title">AI Skin Disease Detector</span>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-link" onclick="navigateTo('home')">🏠 Home</button>
+                <button class="nav-link" onclick="navigateTo('upload')">📤 Upload</button>
+                <button class="nav-link" onclick="navigateTo('history')" id="historyNavBtn" style="display:none;">📋 History</button>
+                <button class="theme-toggle" id="themeToggle" title="Toggle dark mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </nav>
 
-        <section class="card">
-            <p>Upload an image of skin and the model will predict the most likely disease.</p>
+    <!-- Hero Section -->
+    <header class="hero" id="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">🏥 AI-Powered Skin Analysis</h1>
+            <p class="hero-subtitle">Get instant AI-based predictions for common skin conditions. Upload or capture an image to get started.</p>
+            <button class="cta-button" onclick="navigateTo('upload')">
+                ✨ Start Analysis
+            </button>
+        </div>
+        <div class="hero-graphic">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+        </div>
+    </header>
 
-            <label class="file-upload">
-                <input id="imageInput" type="file" accept="image/*" />
-                <span>Select image</span>
-            </label>
+    <!-- Medical Disclaimer -->
+    <section class="disclaimer-section">
+        <div class="disclaimer-box">
+            <strong>⚠️ Medical Disclaimer:</strong>
+            <p>This AI tool provides predictions based on image analysis and is NOT a substitute for professional medical diagnosis. Always consult a qualified dermatologist or healthcare professional for accurate diagnosis and treatment.</p>
+        </div>
+    </section>
 
-            <button id="predictButton" onclick="upload()">Predict</button>
+    <main class="app-container">
+        <!-- ==================== HOME PAGE ==================== -->
+        <section id="home-page" class="page active">
+            <!-- How It Works Section -->
+            <section class="how-it-works">
+                <h2>How It Works</h2>
+                <div class="steps-container">
+                    <div class="step">
+                        <div class="step-icon">1️⃣</div>
+                        <h3>Upload Image</h3>
+                        <p>Select a clear photo of the affected skin area.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">2️⃣</div>
+                        <h3>Image Preprocessing</h3>
+                        <p>Image is resized to 224×224px and normalized for the model.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">3️⃣</div>
+                        <h3>CNN Analysis</h3>
+                        <p>Deep learning model analyzes features and patterns.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">4️⃣</div>
+                        <h3>Prediction Output</h3>
+                        <p>Get confidence scores and detailed medical insights.</p>
+                    </div>
+                </div>
+            </section>
 
-            <div id="result" class="result" aria-live="polite"></div>
+            <div class="cta-section">
+                <h2>Ready to get started?</h2>
+                <button class="cta-button" onclick="navigateTo('upload')">
+                    📤 Upload Image Now
+                </button>
+            </div>
         </section>
 
-        <section class="notes">
-            <h2>Notes</h2>
-            <ul>
-                <li>This demo expects a trained Keras model at <code>skin_model.h5</code>.</li>
-                <li>If the model is missing, the server returns a dummy prediction.</li>
-            </ul>
+        <!-- ==================== UPLOAD PAGE ==================== -->
+        <section id="upload-page" class="page">
+            <div class="section-header">
+                <h2>Upload Your Skin Image</h2>
+                <p>Drag & drop or select an image to analyze</p>
+            </div>
+
+            <form class="upload-form" id="uploadForm" onsubmit="handleSubmit(event)">
+                <!-- Dropzone -->
+                <div class="dropzone" id="dropzone">
+                    <div class="dropzone-content">
+                        <div class="drop-icon">📸</div>
+                        <p class="drop-title">Drag & drop your image here</p>
+                        <p class="drop-subtitle">PNG, JPG, or WEBP (max 10MB)</p>
+                        <button type="button" class="browse-link" onclick="document.getElementById('fileInput').click()">
+                            Browse files
+                        </button>
+                    </div>
+                    <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" style="display:none;" />
+                </div>
+
+                <!-- Preview Section -->
+                <div id="previewSection" class="preview-section" style="display:none;">
+                    <div class="preview-container">
+                        <img id="previewImage" src="" alt="Preview" class="preview-image" />
+                        <div class="preview-info">
+                            <p id="fileName"></p>
+                            <p id="fileSize"></p>
+                        </div>
+                    </div>
+                    <div class="preview-actions">
+                        <button type="button" class="btn-secondary" onclick="resetImage()">🔄 Remove Image</button>
+                        <button type="button" class="btn-secondary" onclick="openCamera()">📷 Capture Photo</button>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button type="submit" id="analyzeBtn" class="btn-primary" disabled>
+                        🔍 Analyze Image
+                    </button>
+                </div>
+
+                <!-- Loading State -->
+                <div id="loadingState" class="loading-state" style="display:none;">
+                    <div class="spinner"></div>
+                    <p>Analyzing image with AI model...</p>
+                </div>
+
+                <!-- Error Message -->
+                <div id="errorMessage" class="error-message" style="display:none;"></div>
+            </form>
+        </section>
+
+        <!-- ==================== RESULT PAGE ==================== -->
+        <section id="result-page" class="page">
+            <div id="resultSection" class="result-section"></div>
+        </section>
+
+        <!-- ==================== HISTORY PAGE ==================== -->
+        <section id="history-page" class="page">
+            <div class="section-header">
+                <h2>📋 Prediction History</h2>
+                <p>Your previous skin analysis predictions</p>
+            </div>
+
+            <div id="historyContent" class="history-content" style="display:none;">
+                <div id="historyList" class="history-list"></div>
+                <button class="btn-secondary" onclick="clearHistory()" style="margin-top:1rem;">🗑️ Clear All History</button>
+            </div>
+
+            <div id="historyEmpty" class="history-empty">
+                <div style="text-align: center; padding: 3rem 1rem;">
+                    <div class="history-empty-icon">📋</div>
+                    <p style="font-size: 1.1rem; color: var(--text-secondary); margin: 0 0 1.5rem;">No predictions yet. Start by uploading an image!</p>
+                    <button class="cta-button" onclick="navigateTo('upload')" style="max-width: 300px; margin: 0 auto;">
+                        📤 Upload Image
+                    </button>
+                </div>
+            </div>
         </section>
     </main>
 
+    <!-- Footer -->
+    <footer class="footer">
+        <p><strong>🏥 AI Skin Disease Detector</strong> — Built with React/Flask, TensorFlow & CNN</p>
+        <p>For educational and research purposes only. Always consult a medical professional.</p>
+    </footer>
+
+    <!-- Camera Modal -->
+    <div id="cameraModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>📷 Capture Photo</h3>
+                <button class="modal-close" onclick="closeCamera()">×</button>
+            </div>
+            <div id="cameraView" class="camera-view" style="display:none;">
+                <video id="cameraVideo" autoplay playsinline></video>
+                <canvas id="captureCanvas" style="display:none;"></canvas>
+            </div>
+            <div id="cameraPlaceholder" class="camera-placeholder">
+                <div class="camera-large-icon">📹</div>
+                <p>Point your camera at the skin area</p>
+            </div>
+            <div class="modal-actions">
+                <button id="startCameraBtn" type="button" class="btn-primary" onclick="startCamera()">Start Camera</button>
+                <button id="stopCameraBtn" type="button" class="btn-secondary" onclick="stopCamera()" style="display:none;">Stop Camera</button>
+                <button id="captureBtn" type="button" class="btn-primary" onclick="capturePhoto()" style="display:none;">📸 Capture</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- External Libraries from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="/static/app.js"></script>
 </body>
 </html>

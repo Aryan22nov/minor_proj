@@ -2,6 +2,10 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import config from "./config";
+
+const API_URL = config.API_URL;
+const PREDICT_ENDPOINT = `${API_URL}/predict`;
 
 const DISEASE_INFO = {
   Acne: {
@@ -482,7 +486,7 @@ export default function App() {
     formData.append("image", file);
 
     try {
-      const response = await fetch("/predict", {
+      const response = await fetch(PREDICT_ENDPOINT, {
         method: "POST",
         body: formData
       });

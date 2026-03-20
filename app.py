@@ -15,6 +15,7 @@ import os
 from pathlib import Path
 
 from flask import Flask, jsonify, render_template, request, send_from_directory
+from flask_cors import CORS
 from PIL import Image
 import numpy as np
 
@@ -47,6 +48,12 @@ if USE_REACT_DIST:
     )
 else:
     app = Flask(__name__)
+
+# Enable CORS for production deployment
+CORS(app, resources={
+    r"/predict": {"origins": "*"},
+    r"/": {"origins": "*"}
+})
 
 # Try to load the model early so startup fails fast if something is wrong.
 # If the model is missing, we fall back to a dummy predictor.
@@ -140,4 +147,7 @@ def predict():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # For production, set debug=False and bind to 0.0.0.0
+    debug = os.environ.get("FLASK_DEBUG", "false").lower() == "true"
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=debug)
