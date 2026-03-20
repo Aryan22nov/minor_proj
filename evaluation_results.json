@@ -1,0 +1,39 @@
+{
+  "test_accuracy": 0.5166666666666667,
+  "per_class_accuracy": {
+    "Acne": 0.8666666666666667,
+    "Eczema": 0.2,
+    "Melanoma": 1.0,
+    "Psoriasis": 0.0
+  },
+  "confusion_matrix": [
+    [
+      13,
+      2,
+      0,
+      0
+    ],
+    [
+      11,
+      3,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      15,
+      0
+    ],
+    [
+      13,
+      2,
+      0,
+      0
+    ]
+  ],
+  "classification_report": "              precision    recall  f1-score   support\n\n        Acne     0.3514    0.8667    0.5000        15\n      Eczema     0.4286    0.2000    0.2727        15\n    Melanoma     0.9375    1.0000    0.9677        15\n   Psoriasis     0.0000    0.0000    0.0000        15\n\n    accuracy                         0.5167        60\n   macro avg     0.4294    0.5167    0.4351        60\nweighted avg     0.4294    0.5167    0.4351        60\n",
+  "num_test_samples": 60,
+  "num_correct": 31,
+  "num_incorrect": 29
+}

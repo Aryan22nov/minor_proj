@@ -1,0 +1,132 @@
+[
+  {
+    "image_path": "dataset_split\\test\\Acne\\Acne_0000.jpg",
+    "predicted_class": "Acne",
+    "confidence": 0.40664181113243103,
+    "all_probabilities": {
+      "Acne": 0.40664181113243103,
+      "Eczema": 0.3056676387786865,
+      "Melanoma": 0.10659430176019669,
+      "Psoriasis": 0.18109628558158875
+    },
+    "is_high_confidence": true,
+    "top_3_predictions": [
+      [
+        "Acne",
+        0.40664181113243103
+      ],
+      [
+        "Eczema",
+        0.3056676387786865
+      ],
+      [
+        "Psoriasis",
+        0.18109628558158875
+      ]
+    ]
+  },
+  {
+    "image_path": "dataset_split\\test\\Acne\\Acne_0004.jpg",
+    "predicted_class": "Acne",
+    "confidence": 0.29615193605422974,
+    "all_probabilities": {
+      "Acne": 0.29615193605422974,
+      "Eczema": 0.2717079818248749,
+      "Melanoma": 0.287554532289505,
+      "Psoriasis": 0.144585520029068
+    },
+    "is_high_confidence": false,
+    "top_3_predictions": [
+      [
+        "Acne",
+        0.29615193605422974
+      ],
+      [
+        "Melanoma",
+        0.287554532289505
+      ],
+      [
+        "Eczema",
+        0.2717079818248749
+      ]
+    ]
+  },
+  {
+    "image_path": "dataset_split\\test\\Acne\\Acne_0009.jpg",
+    "predicted_class": "Acne",
+    "confidence": 0.39729905128479004,
+    "all_probabilities": {
+      "Acne": 0.39729905128479004,
+      "Eczema": 0.3967970311641693,
+      "Melanoma": 0.04731016978621483,
+      "Psoriasis": 0.15859372913837433
+    },
+    "is_high_confidence": true,
+    "top_3_predictions": [
+      [
+        "Acne",
+        0.39729905128479004
+      ],
+      [
+        "Eczema",
+        0.3967970311641693
+      ],
+      [
+        "Psoriasis",
+        0.15859372913837433
+      ]
+    ]
+  },
+  {
+    "image_path": "dataset_split\\test\\Acne\\Acne_0010.jpg",
+    "predicted_class": "Acne",
+    "confidence": 0.34520792961120605,
+    "all_probabilities": {
+      "Acne": 0.34520792961120605,
+      "Eczema": 0.27077239751815796,
+      "Melanoma": 0.19930465519428253,
+      "Psoriasis": 0.18471495807170868
+    },
+    "is_high_confidence": true,
+    "top_3_predictions": [
+      [
+        "Acne",
+        0.34520792961120605
+      ],
+      [
+        "Eczema",
+        0.27077239751815796
+      ],
+      [
+        "Melanoma",
+        0.19930465519428253
+      ]
+    ]
+  },
+  {
+    "image_path": "dataset_split\\test\\Acne\\Acne_0030.jpg",
+    "predicted_class": "Acne",
+    "confidence": 0.3778630495071411,
+    "all_probabilities": {
+      "Acne": 0.3778630495071411,
+      "Eczema": 0.270615816116333,
+      "Melanoma": 0.12889364361763,
+      "Psoriasis": 0.22262750566005707
+    },
+    "is_high_confidence": true,
+    "top_3_predictions": [
+      [
+        "Acne",
+        0.3778630495071411
+      ],
+      [
+        "Eczema",
+        0.270615816116333
+      ],
+      [
+        "Psoriasis",
+        0.22262750566005707
+      ]
+    ]
+  }
+]

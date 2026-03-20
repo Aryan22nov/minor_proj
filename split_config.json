@@ -1,0 +1,49 @@
+{
+  "split_ratios": {
+    "training": "70%",
+    "validation": "15%",
+    "test": "15%"
+  },
+  "split_statistics": {
+    "train": {
+      "total": 280,
+      "class_distribution": {
+        "Acne": 70,
+        "Eczema": 70,
+        "Melanoma": 70,
+        "Psoriasis": 70
+      }
+    },
+    "validation": {
+      "total": 60,
+      "class_distribution": {
+        "Acne": 15,
+        "Eczema": 15,
+        "Melanoma": 15,
+        "Psoriasis": 15
+      }
+    },
+    "test": {
+      "total": 60,
+      "class_distribution": {
+        "Acne": 15,
+        "Eczema": 15,
+        "Melanoma": 15,
+        "Psoriasis": 15
+      }
+    }
+  },
+  "data_leakage_check": {
+    "train_val_overlap": 0,
+    "train_test_overlap": 0,
+    "val_test_overlap": 0,
+    "status": "NO LEAKAGE"
+  },
+  "directory_structure": {
+    "original": "dataset",
+    "split_base": "dataset_split",
+    "train": "dataset_split\\train",
+    "validation": "dataset_split\\validation",
+    "test": "dataset_split\\test"
+  }
+}
