@@ -27,14 +27,23 @@ export const getAPIUrl = () => {
     // If no URL set, try relative path (works if backend and frontend on same domain)
     return '';
   }
-  
-  return apiUrl;
+
+  // Normalize accidental trailing slash to avoid double slashes in endpoints.
+  const normalizedUrl = apiUrl.replace(/\/$/, '');
+
+  // Prevent mixed-content failures when frontend is HTTPS and backend URL is HTTP.
+  if (window.location.protocol === 'https:' && normalizedUrl.startsWith('http://')) {
+    return normalizedUrl.replace('http://', 'https://');
+  }
+
+  return normalizedUrl;
 };
 
 export const API_URL = getAPIUrl();
+export const PREDICT_ENDPOINT = `${API_URL}/predict`;
 
 export default {
   API_URL,
-  PREDICT_ENDPOINT: `${API_URL}/predict`,
+  PREDICT_ENDPOINT,
   getAPIUrl
 };

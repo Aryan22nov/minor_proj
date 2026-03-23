@@ -4,8 +4,7 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import config from "./config";
 
-const API_URL = config.API_URL;
-const PREDICT_ENDPOINT = `${API_URL}/predict`;
+const PREDICT_ENDPOINT = config.PREDICT_ENDPOINT;
 
 const DISEASE_INFO = {
   Acne: {
@@ -520,7 +519,13 @@ export default function App() {
       setHistory(updated);
       localStorage.setItem("predictionHistory", JSON.stringify(updated));
     } catch (err) {
-      setError(err.message);
+      if (err instanceof TypeError && err.message.includes("Failed to fetch")) {
+        setError(
+          `Unable to reach backend API. Check that backend is running and VITE_API_URL is correct. Endpoint: ${PREDICT_ENDPOINT}`
+        );
+      } else {
+        setError(err.message);
+      }
       setPrediction(null);
     } finally {
       setStatus("idle");
