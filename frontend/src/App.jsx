@@ -395,13 +395,13 @@ export default function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [history, setHistory] = useState([]);
   const [showEditor, setShowEditor] = useState(false);
-  const [showCamera, setShowCamera] = useState(false);
   const [rotation, setRotation] = useState(0);
   const [zoomLevel, setZoomLevel] = useState(1);
   const [comparisonImages, setComparisonImages] = useState([]);
   const [showComparison, setShowComparison] = useState(false);
 
   const fileInputRef = useRef(null);
+  const cameraInputRef = useRef(null);
   const uploadSectionRef = useRef(null);
 
   // Load history from localStorage
@@ -437,6 +437,10 @@ export default function App() {
   };
 
   const onFileChange = (event) => {
+    handleFile(event.target.files?.[0] ?? null);
+  };
+
+  const onCameraChange = (event) => {
     handleFile(event.target.files?.[0] ?? null);
   };
 
@@ -624,11 +628,20 @@ export default function App() {
             <button
               type="button"
               className="secondary"
-              onClick={() => setShowCamera(true)}
+              onClick={() => cameraInputRef.current?.click()}
               style={{ marginTop: "12px" }}
             >
-              📷 Capture from Camera
+              📷 Capture from Camera (Direct)
             </button>
+
+            <input
+              ref={cameraInputRef}
+              type="file"
+              accept="image/*"
+              capture="environment"
+              onChange={onCameraChange}
+              className="visuallyHidden"
+            />
 
             <button type="submit" disabled={!canSubmit} className="primary">
               {status === "pending" ? "Analyzing..." : "🔍 Analyze Image"}
